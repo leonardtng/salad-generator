@@ -1,3 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: circular-std;
+  src: url("../public/fonts/CircularStd-Book.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: circular-std-bold;
+  src: url("../public/fonts/CircularStd-Bold.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: major-mono-regular;
+  src: url("../public/fonts/MajorMonoDisplay-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
 html,
 body {
   padding: 0;
@@ -17,10 +39,10 @@ a {
 
 @media (prefers-color-scheme: dark) {
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
   body {
-    color: white;
-    background: black;
+    color: black;
+    background: white;
   }
 }
