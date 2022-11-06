@@ -231,6 +231,7 @@ export default function Home() {
                             alt="placeholder"
                             height={180}
                             width={180}
+                            priority
                           />
                         </div>
                       </div>
