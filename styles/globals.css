@@ -37,6 +37,10 @@ a {
   box-sizing: border-box;
 }
 
+.fp-watermark {
+  display: none
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: light;

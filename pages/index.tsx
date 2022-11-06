@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Ingredient,
   INGREDIENTS,
@@ -11,7 +11,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Spin from "../components/Spin";
 import { startCase } from "lodash";
-import { FaChartBar, FaTimes } from "react-icons/fa";
+import { FaChartBar, FaChevronDown } from "react-icons/fa";
+import ReactFullpage from "@fullpage/react-fullpage";
+import Modal from "../components/Modal";
 
 const formatNutrient = (nutrient: string) => {
   return startCase(nutrient).replace("B 3", "B3").replace("B 1", "B1");
@@ -88,7 +90,6 @@ export default function Home() {
     setTimeout(() => {
       const salad = generateSalad();
       setSalad(salad);
-      setIsOpen(true);
       setIsLoading(false);
     }, 4500);
   };
@@ -124,183 +125,321 @@ export default function Home() {
     setIsOpen(false);
   };
 
+  const [isBrowser, setIsBrowser] = useState(false);
+  useEffect(() => {
+    setIsBrowser(true);
+  }, []);
+
+  const [size, setSize] = useState<number[]>([0, 0]);
+
+  useEffect(() => {
+    const updateSize = () => {
+      setSize([window.innerWidth, window.innerHeight]);
+    };
+
+    window.addEventListener("resize", updateSize);
+    updateSize();
+
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (!isOpen || event.key !== "Escape") return;
+
+      handleClose();
+    },
+    [handleClose, isOpen]
+  );
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = "auto";
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyDown, isOpen]);
+
+  if (!isBrowser) return <></>;
+
   return (
-    <div className="h-fit md:h-screen w-screen mt-16 md:mt-0 flex items-center justify-center font-primary">
+    <div className="min-h-screen w-screen font-primary">
       <Head>
         <title>Salad Maker</title>
         <meta name="description" content="Create your healthy salad!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <AnimatePresence initial={false} exitBeforeEnter={true}>
-        <motion.div
-          className="hidden md:block absolute top-0 right-0 m-5"
-          initial={{ opacity: 0 }}
-          variants={buttonVariants}
-          animate={isOpen ? "hidden" : "show"}
-        >
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            transition={{ duration: 0.2 }}
-            className="p-3 rounded-full bg-gray-100"
-            onClick={() => setIsOpen(true)}
-          >
-            <FaChartBar />
-          </motion.button>
-        </motion.div>
-      </AnimatePresence>
+      <ReactFullpage
+        normalScrollElements="#modal-portal"
+        scrollingSpeed={1000}
+        autoScrolling={size[0] > 640}
+        render={({ state, fullpageApi }) => {
+          return (
+            <ReactFullpage.Wrapper>
+              <main className="section h-fit md:h-screen w-screen flex flex-col justify-center items-center">
+                <div className="w-screen flex flex-col items-center">
+                  {salad.length > 0 && (
+                    <AnimatePresence initial={false} exitBeforeEnter={true}>
+                      <motion.div
+                        className="absolute top-0 right-0 m-5"
+                        initial={{ opacity: 0 }}
+                        variants={buttonVariants}
+                        animate={isOpen ? "hidden" : "show"}
+                      >
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.2 }}
+                          className="p-3 rounded-full bg-gray-100"
+                          onClick={() => setIsOpen(true)}
+                        >
+                          <FaChartBar />
+                        </motion.button>
+                      </motion.div>
+                    </AnimatePresence>
+                  )}
+                  <div className="flex flex-col items-center gap-3 font-title">
+                    <div className="text-3xl">salad maker</div>
+                    <div>create the perfect salad!</div>
 
-      <main>
-        <div className="flex flex-col items-center gap-3 font-title">
-          <div className="text-3xl">salad maker</div>
-          <div>create the perfect salad!</div>
+                    <motion.button
+                      whileHover={{ scale: 1.03 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex justify-center items-center gap-2 mt-3 bg-[#8be78b] py-[2px] w-[160px] disabled:text-gray-500 disabled:cursor-not-allowed"
+                      onClick={() => handleGenerateSalad()}
+                      disabled={isLoading}
+                    >
+                      {isLoading && <Spin />}
+                      {isLoading
+                        ? "making"
+                        : salad.length > 0
+                        ? "make another"
+                        : "make"}
+                    </motion.button>
+                  </div>
 
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            transition={{ duration: 0.2 }}
-            className="flex justify-center items-center gap-2 mt-3 bg-[#8be78b] py-[2px] w-[160px] disabled:text-gray-500 disabled:cursor-not-allowed"
-            onClick={() => handleGenerateSalad()}
-            disabled={isLoading}
-          >
-            {isLoading && <Spin />}
-            {isLoading ? "making" : salad.length > 0 ? "make another" : "make"}
-          </motion.button>
-        </div>
-
-        <div className="mt-8">
-          {salad.length === 0 && !isLoading ? (
-            <div className="flex justify-center items-end h-[450px] w-[300px]">
-              <div className="h-[300px] w-[180px]">
-                <Image
-                  src="/placeholder.png"
-                  alt="placeholder"
-                  height={180}
-                  width={180}
-                />
-              </div>
-            </div>
-          ) : (
-            <>
-              {isLoading ? (
-                <Image
-                  src="/loading.gif"
-                  alt="Loading"
-                  height={450}
-                  width={600}
-                />
-              ) : (
-                <div className="grid grid-cols-3 justify-between gap-3 h-[450px]">
-                  {salad.map(({ label, image }: Ingredient) => (
-                    <div key={label} className="flex flex-col items-center">
-                      <Image src={image} alt={label} height={180} width={180} />
-                      <div>{label}</div>
+                  <div className="mt-8">
+                    {salad.length === 0 && !isLoading ? (
+                      <div className="flex justify-center items-end h-[450px] w-[300px]">
+                        <div className="h-[300px] w-[180px]">
+                          <Image
+                            src="/placeholder.png"
+                            alt="placeholder"
+                            height={180}
+                            width={180}
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        {isLoading ? (
+                          <Image
+                            src="/loading.gif"
+                            alt="Loading"
+                            height={450}
+                            width={600}
+                          />
+                        ) : (
+                          <div className="grid grid-cols-3 justify-between gap-3 h-[450px]">
+                            {salad.map(({ label, image }: Ingredient) => (
+                              <div
+                                key={label}
+                                className="flex flex-col items-center"
+                              >
+                                <Image
+                                  src={image}
+                                  alt={label}
+                                  height={180}
+                                  width={180}
+                                />
+                                <div>{label}</div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </>
+                    )}
+                    <div className="w-full absolute bottom-8 left-0 flex justify-center">
+                      <button onClick={() => fullpageApi.moveSectionDown()}>
+                        <FaChevronDown />
+                      </button>
                     </div>
-                  ))}
+                  </div>
                 </div>
-              )}
-            </>
-          )}
-        </div>
 
-        <AnimatePresence initial={false} exitBeforeEnter={true}>
-          {isOpen && !isLoading && (
-            <div className="h-full relative lg:fixed w-screen md:w-[350px] lg:max-h-screen overflow-y-auto top-0 right-0 flex justify-center md:justify-start">
-              <motion.div
-                tabIndex={-1}
-                className="flex flex-col dark:bg-darkCard bg-lightBackground y00ts:border y00ts:border-darkBorder"
-                initial={{ x: window.innerWidth * 2 }}
-                animate={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-                exit={{ x: window.innerWidth * 2, transition: { duration: 1 } }}
-                key="menu"
-              >
-                <div className="hidden md:block absolute right-0 p-8 mt-1">
-                  <motion.button
-                    className="dark:text-darkFontPrimary text-lightFontPrimary outline-none"
-                    onClick={handleClose}
-                    whileTap={{ scale: 0.9 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <FaTimes />
-                  </motion.button>
-                </div>
-                <motion.div
-                  className="flex flex-col flex-1 pt-8 px-8"
-                  variants={container}
-                  initial="hidden"
-                  animate="show"
+                <Modal
+                  isOpen={isOpen}
+                  handleClose={handleClose}
+                  className="bg-white h-[500px] overflow-y-auto rounded-xl"
+                  blurHigh
                 >
                   <motion.div
-                    className="h-full flex flex-col w-full text-xl mb-3"
-                    variants={item}
+                    className="flex flex-col w-[350px] pt-8 px-8"
+                    variants={container}
+                    initial="hidden"
+                    animate="show"
                   >
-                    Nutrition
+                    <motion.div
+                      className="h-full flex flex-col w-full text-xl mb-3"
+                      variants={item}
+                    >
+                      Nutrition
+                    </motion.div>
+                    <ul>
+                      {salad.map(
+                        ({ label, nutrients }: Ingredient, index: number) => (
+                          <motion.li className="mb-3 text-sm" variants={item}>
+                            <span className="underline">
+                              {index === 0
+                                ? "Salad Base"
+                                : `Ingredient #${index}`}
+                              :
+                            </span>{" "}
+                            {label}
+                            <ul className="pl-6 text-sm">
+                              {nutrients.map(
+                                (nutrient: string, index: number) => (
+                                  <li key={index}>
+                                    - {formatNutrient(nutrient)}
+                                  </li>
+                                )
+                              )}
+                            </ul>
+                          </motion.li>
+                        )
+                      )}
+                    </ul>
+
+                    <motion.div className="flex mt-3 mb-8" variants={item}>
+                      <div className="w-1/2 mr-5">
+                        <div className="font-primaryBold text-sm">Macro</div>
+                        <ul className="text-xs">
+                          {NUTRIENTS_MAP.macro
+                            .filter((nutrient: string) =>
+                              salad
+                                .flatMap(
+                                  (ingredient: Ingredient) =>
+                                    ingredient.nutrients
+                                )
+                                .includes(nutrient)
+                            )
+                            .map((nutrient: string) => (
+                              <li>✅ {formatNutrient(nutrient)}</li>
+                            ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <div className="font-primaryBold text-sm">Micro</div>
+                        <ul className="text-xs">
+                          {NUTRIENTS_MAP.micro
+                            .filter((nutrient: string) =>
+                              salad
+                                .flatMap(
+                                  (ingredient: Ingredient) =>
+                                    ingredient.nutrients
+                                )
+                                .includes(nutrient)
+                            )
+                            .map((nutrient: string) => (
+                              <li>✅ {formatNutrient(nutrient)}</li>
+                            ))}
+                        </ul>
+                      </div>
+                    </motion.div>
                   </motion.div>
-                  <ul>
-                    {salad.map(
-                      ({ label, nutrients }: Ingredient, index: number) => (
-                        <motion.li className="mb-3" variants={item}>
-                          <span className="underline">
-                            {index === 0
-                              ? "Salad Base"
-                              : `Ingredient #${index}`}
-                            :
-                          </span>{" "}
-                          {label}
-                          <ul className="pl-6">
-                            {nutrients.map(
-                              (nutrient: string, index: number) => (
-                                <li key={index}>
-                                  - {formatNutrient(nutrient)}
-                                </li>
-                              )
-                            )}
-                          </ul>
-                        </motion.li>
-                      )
-                    )}
+                </Modal>
+                <div id="modal-portal" />
+              </main>
+              <section className="section  h-fit md:h-screen w-screen flex flex-col justify-center items-center">
+                <div className="relative h-fit md:h-screen w-screen flex flex-col justify-center items-center px-3 md:px-0 max-w-screen md:max-w-[500px] pb-8 text-justify">
+                  <div className="text-xl mb-6 font-title text-center">
+                    plants and dietary diversity
+                  </div>
+
+                  <p className="mb-3">
+                    Why a salad generator? Well, in an early discussion paper by
+                    the International Food Policy Research Institute (IFPRI)
+                    from 2002, it was suggested that there are positive
+                    associations between dietary diversity and nutrient adequacy
+                    from studying developed nations (Ruel 2003). In other words,
+                    eating a wide range of foods is extremely important as one
+                    is able to cover a larger range of nutrients that is
+                    required to meet your daily needs.
+                  </p>
+
+                  <p className="mb-3">
+                    Furthermore, in a later paper about child nutritional
+                    status, it was determined by analyzing children from
+                    different socio-economic statuses, that children with higher
+                    dietary diversity scored higher height-for-age z-scores
+                    (HAZ). They showed that despite the common notion of
+                    children developing better under higher socio-economic
+                    circumstances, there is also a relationship between dietary
+                    diversity and diet quality independent of socio-economic
+                    status (Arimond & Marie 2004).
+                  </p>
+
+                  <p>
+                    Combining this concept with what I learnt in YID224: Plants
+                    & People about plant nutrition, I created this salad
+                    generator that creates salads that satisfy both the macro
+                    and micro nutrients that are so very important to one's
+                    diet. Because eating the same salad everyday also gets so
+                    boring and dietary diversity is the way to go, I hope this
+                    salad maker will help spice up one's meal and pave the way
+                    for a healthier lifestyle.
+                  </p>
+
+                  <div className="hidden md:flex justify-center w-full absolute bottom-12 left-0 ">
+                    <button onClick={() => fullpageApi.moveSectionDown()}>
+                      <FaChevronDown />
+                    </button>
+                  </div>
+                </div>
+              </section>
+
+              <footer className="section  h-fit md:h-screen w-screen flex flex-col justify-center items-center">
+                <div className="relative h-fit md:h-screen w-screen flex flex-col justify-center items-center px-3 md:px-0 max-w-screen max-w-[500px] pb-8 text-justify">
+                  <div className="text-xl mb-6 font-title">citations</div>
+
+                  <ul className="flex flex-col gap-5">
+                    <li>
+                      Arimond, Mary, and Marie T. Ruel. "Dietary diversity is
+                      associated with child nutritional status: evidence from 11
+                      demographic and health surveys." The Journal of nutrition
+                      134.10 (2004): 2579-2585.
+                      <a
+                        href="https://doi.org/10.1093/jn/134.10.2579"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="underline"
+                      >
+                        https://doi.org/10.1093/jn/134.10.2579
+                      </a>
+                    </li>
+                    <li>
+                      Ruel, Marie T. "Is dietary diversity an indicator of food
+                      security or dietary quality? A review of measurement
+                      issues and research needs." Food and nutrition bulletin
+                      24.2 (2003): 231-232.
+                    </li>
                   </ul>
 
-                  <motion.div className="flex mt-3 mb-8" variants={item}>
-                    <div className="w-1/2 mr-5">
-                      <div className="font-primaryBold">Macro</div>
-                      <ul>
-                        {NUTRIENTS_MAP.macro
-                          .filter((nutrient: string) =>
-                            salad
-                              .flatMap(
-                                (ingredient: Ingredient) => ingredient.nutrients
-                              )
-                              .includes(nutrient)
-                          )
-                          .map((nutrient: string) => (
-                            <li>✅ {formatNutrient(nutrient)}</li>
-                          ))}
-                      </ul>
-                    </div>
-                    <div>
-                      <div className="font-primaryBold">Micro</div>
-                      <ul>
-                        {NUTRIENTS_MAP.micro
-                          .filter((nutrient: string) =>
-                            salad
-                              .flatMap(
-                                (ingredient: Ingredient) => ingredient.nutrients
-                              )
-                              .includes(nutrient)
-                          )
-                          .map((nutrient: string) => (
-                            <li>✅ {formatNutrient(nutrient)}</li>
-                          ))}
-                      </ul>
-                    </div>
-                  </motion.div>
-                </motion.div>
-              </motion.div>
-            </div>
-          )}
-        </AnimatePresence>
-      </main>
+                  {/* <div className="hidden md:flex justify-center w-full absolute bottom-8 left-0">
+                    <button onClick={() => fullpageApi.moveTo(1, 1)}>
+                      <FaChevronDown />
+                    </button>
+                  </div> */}
+                </div>
+              </footer>
+            </ReactFullpage.Wrapper>
+          );
+        }}
+      />
     </div>
   );
 }
