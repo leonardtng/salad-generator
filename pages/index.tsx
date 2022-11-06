@@ -361,9 +361,9 @@ export default function Home() {
                   </div>
 
                   <p className="mb-3">
-                    Why a salad generator? Well, in an early discussion paper by
-                    the International Food Policy Research Institute (IFPRI)
-                    from 2002, it was suggested that there are positive
+                    Why a randomized salad maker? Well, in an early discussion
+                    paper by the International Food Policy Research Institute
+                    (IFPRI) from 2002, it was suggested that there are positive
                     associations between dietary diversity and nutrient adequacy
                     from studying developed nations (Ruel 2003). In other words,
                     eating a wide range of foods is extremely important as one
@@ -385,13 +385,13 @@ export default function Home() {
 
                   <p>
                     Combining this concept with what I learnt in YID224: Plants
-                    & People about plant nutrition, I created this salad
-                    generator that creates salads that satisfy both the macro
-                    and micro nutrients that are so very important to one's
-                    diet. Because eating the same salad everyday also gets so
-                    boring and dietary diversity is the way to go, I hope this
-                    salad maker will help spice up one's meal and pave the way
-                    for a healthier lifestyle.
+                    & People about plant nutrition, I created this salad maker
+                    that generates salads that satisfy both the macro and micro
+                    nutrients that are so very important to one's diet. Because
+                    eating the same salad everyday also gets so boring and
+                    dietary diversity is the way to go, I hope this salad maker
+                    will help spice up one's meal and pave the way for a
+                    healthier lifestyle.
                   </p>
 
                   <div className="hidden md:flex justify-center w-full absolute bottom-12 left-0 ">
