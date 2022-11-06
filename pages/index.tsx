@@ -111,17 +111,6 @@ export default function Home() {
     show: { x: 0, opacity: 1 },
   };
 
-  const buttonVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        delay: 0.5,
-      },
-    },
-  };
-
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -184,25 +173,6 @@ export default function Home() {
             <ReactFullpage.Wrapper>
               <main className="section h-fit md:h-screen w-screen flex flex-col justify-center items-center">
                 <div className="w-screen flex flex-col items-center">
-                  {salad.length > 0 && (
-                    <AnimatePresence initial={false} exitBeforeEnter={true}>
-                      <motion.div
-                        className="absolute top-0 right-0 m-5"
-                        initial={{ opacity: 0 }}
-                        variants={buttonVariants}
-                        animate={isOpen ? "hidden" : "show"}
-                      >
-                        <motion.button
-                          whileHover={{ scale: 1.1 }}
-                          transition={{ duration: 0.2 }}
-                          className="p-3 rounded-full bg-gray-100"
-                          onClick={() => setIsOpen(true)}
-                        >
-                          <FaChartBar />
-                        </motion.button>
-                      </motion.div>
-                    </AnimatePresence>
-                  )}
                   <div className="flex flex-col items-center gap-3 font-title">
                     <div className="text-3xl">salad maker</div>
                     <div>create the perfect salad!</div>
@@ -223,7 +193,7 @@ export default function Home() {
                     </motion.button>
                   </div>
 
-                  <div className="mt-8">
+                  <div className="mt-6">
                     {salad.length === 0 && !isLoading ? (
                       <div className="flex justify-center items-end h-[450px] w-[300px]">
                         <div className="h-[300px] w-[180px]">
@@ -265,6 +235,31 @@ export default function Home() {
                         )}
                       </>
                     )}
+                    <div className="h-[32px] mt-5 flex justify-center">
+                      {salad.length > 0 && !isLoading && (
+                        <AnimatePresence initial={false} exitBeforeEnter={true}>
+                          <motion.div
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{
+                              duration: 0.2,
+                              ease: [0, 0.71, 0.2, 1.01],
+                            }}
+                          >
+                            <motion.button
+                              whileHover={{ scale: 1.1 }}
+                              transition={{ duration: 0.2 }}
+                              className="py-1 w-[130px] flex justify-center items-center gap-2 rounded-full bg-[#eca341]"
+                              onClick={() => setIsOpen(true)}
+                            >
+                              <FaChartBar />
+                              Nutrition
+                            </motion.button>
+                          </motion.div>
+                        </AnimatePresence>
+                      )}
+                    </div>
+
                     <div className="w-full absolute bottom-8 left-0 flex justify-center">
                       <button onClick={() => fullpageApi.moveSectionDown()}>
                         <FaChevronDown />
