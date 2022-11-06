@@ -11,9 +11,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Spin from "../components/Spin";
 import { startCase } from "lodash";
-import { FaChartBar, FaChevronDown } from "react-icons/fa";
+import { FaChartBar, FaChevronDown, FaGithub } from "react-icons/fa";
 import ReactFullpage from "@fullpage/react-fullpage";
 import Modal from "../components/Modal";
+import Link from "next/link";
 
 const formatNutrient = (nutrient: string) => {
   return startCase(nutrient).replace("B 3", "B3").replace("B 1", "B1");
@@ -395,7 +396,7 @@ export default function Home() {
                     healthier lifestyle.
                   </p>
 
-                  <div className="hidden md:flex justify-center w-full absolute bottom-12 left-0 ">
+                  <div className="hidden md:flex justify-center w-full absolute bottom-8 left-0 ">
                     <button onClick={() => fullpageApi.moveSectionDown()}>
                       <FaChevronDown />
                     </button>
@@ -430,11 +431,33 @@ export default function Home() {
                     </li>
                   </ul>
 
-                  {/* <div className="hidden md:flex justify-center w-full absolute bottom-8 left-0">
-                    <button onClick={() => fullpageApi.moveTo(1, 1)}>
-                      <FaChevronDown />
-                    </button>
-                  </div> */}
+                  <div className="hidden md:flex justify-center w-full absolute bottom-8 left-0">
+                    <Link
+                      href="https://github.com/leonardtng/salad-maker"
+                      passHref
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <AnimatePresence initial={false} exitBeforeEnter={true}>
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{
+                            duration: 0.2,
+                            ease: [0, 0.71, 0.2, 1.01],
+                          }}
+                        >
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            transition={{ duration: 0.2 }}
+                            className="p-3 rounded-full bg-gray-100"
+                          >
+                            <FaGithub />
+                          </motion.button>
+                        </motion.div>
+                      </AnimatePresence>
+                    </Link>
+                  </div>
                 </div>
               </footer>
             </ReactFullpage.Wrapper>
