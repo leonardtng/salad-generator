@@ -11,7 +11,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Spin from "../components/Spin";
 import { startCase } from "lodash";
-import { FaTimes } from "react-icons/fa";
+import { FaChartBar, FaTimes } from "react-icons/fa";
 
 const formatNutrient = (nutrient: string) => {
   return startCase(nutrient).replace("B 3", "B3").replace("B 1", "B1");
@@ -109,17 +109,46 @@ export default function Home() {
     show: { x: 0, opacity: 1 },
   };
 
+  const buttonVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        delay: 0.5,
+      },
+    },
+  };
+
   const handleClose = () => {
     setIsOpen(false);
   };
 
   return (
-    <div className="h-fit md:h-screen w-screen flex items-center justify-center font-primary">
+    <div className="h-fit md:h-screen w-screen mt-16 md:mt-0 flex items-center justify-center font-primary">
       <Head>
         <title>Salad Maker</title>
         <meta name="description" content="Create your healthy salad!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <AnimatePresence initial={false} exitBeforeEnter={true}>
+        <motion.div
+          className="hidden md:block absolute top-0 right-0 m-5"
+          initial={{ opacity: 0 }}
+          variants={buttonVariants}
+          animate={isOpen ? "hidden" : "show"}
+        >
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.2 }}
+            className="p-3 rounded-full bg-gray-100"
+            onClick={() => setIsOpen(true)}
+          >
+            <FaChartBar />
+          </motion.button>
+        </motion.div>
+      </AnimatePresence>
 
       <main>
         <div className="flex flex-col items-center gap-3 font-title">
@@ -175,7 +204,7 @@ export default function Home() {
 
         <AnimatePresence initial={false} exitBeforeEnter={true}>
           {isOpen && !isLoading && (
-            <div className="h-full relative  lg:fixed w-[350px] lg:max-h-screen overflow-y-auto top-0 right-0 ">
+            <div className="h-full relative lg:fixed w-screen md:w-[350px] lg:max-h-screen overflow-y-auto top-0 right-0 flex justify-center md:justify-start">
               <motion.div
                 tabIndex={-1}
                 className="flex flex-col dark:bg-darkCard bg-lightBackground y00ts:border y00ts:border-darkBorder"
@@ -185,7 +214,7 @@ export default function Home() {
                 exit={{ x: window.innerWidth * 2, transition: { duration: 1 } }}
                 key="menu"
               >
-                <div className="absolute right-0 p-8 mt-1">
+                <div className="hidden md:block absolute right-0 p-8 mt-1">
                   <motion.button
                     className="dark:text-darkFontPrimary text-lightFontPrimary outline-none"
                     onClick={handleClose}
