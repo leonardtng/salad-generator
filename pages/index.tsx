@@ -351,10 +351,11 @@ export default function Home() {
                 </Modal>
                 <div id="modal-portal" />
               </main>
+
               <section className="section  h-fit md:h-screen w-screen flex flex-col justify-center items-center">
                 <div className="relative h-fit md:h-screen w-screen flex flex-col justify-center items-center px-3 md:px-0 max-w-screen md:max-w-[500px] pb-8 text-justify">
                   <div className="text-xl mb-6 font-title text-center">
-                    plants and dietary diversity
+                    dietary diversity
                   </div>
 
                   <p className="mb-3">
@@ -367,6 +368,30 @@ export default function Home() {
                     is able to cover a larger range of nutrients that is
                     required to meet your daily needs.
                   </p>
+
+                  <p>
+                    It is also believed that having a diverse diet helps in
+                    maintaining a healthy gastrointestinal microbiome.
+                    Gastrointestinal tracts that contains a richer microbial
+                    ecosystem was found to have a greater resilience to disease,
+                    and this can be achieved by eating a wide variety of fruit
+                    and vegetables (Heiman et al. 2016).
+                  </p>
+
+                  <div className="hidden md:flex justify-center w-full absolute bottom-8 left-0 ">
+                    <button onClick={() => fullpageApi.moveSectionDown()}>
+                      <FaChevronDown />
+                    </button>
+                  </div>
+                </div>
+              </section>
+
+              <section className="section  h-fit md:h-screen w-screen flex flex-col justify-center items-center">
+                <div className="relative h-fit md:h-screen w-screen flex flex-col justify-center items-center px-3 md:px-0 max-w-screen md:max-w-[500px] pb-8 text-justify">
+                  <div className="text-xl mb-6 font-title text-center">
+                    dietary diversity <br />
+                    in human communities
+                  </div>
 
                   <p className="mb-3">
                     Furthermore, in a later paper about child nutritional
@@ -381,16 +406,50 @@ export default function Home() {
                   </p>
 
                   <p>
+                    This similar pattern was also proven in a seperate study on
+                    inhabitants of rural Mali (Torheim et al. 2004). By
+                    analyzing groups of people with different diets, it was
+                    found that there is a positive correlation between those who
+                    consumed from the highest number of different food groups
+                    (cereals, legumes, oil/sugar, fruit, vegetables, meat, milk,
+                    fish, eggs and green leaves) and those who scored the
+                    highest in nutrient adequacy.
+                  </p>
+
+                  <div className="hidden md:flex justify-center w-full absolute bottom-8 left-0 ">
+                    <button onClick={() => fullpageApi.moveSectionDown()}>
+                      <FaChevronDown />
+                    </button>
+                  </div>
+                </div>
+              </section>
+
+              <section className="section  h-fit md:h-screen w-screen flex flex-col justify-center items-center">
+                <div className="relative h-fit md:h-screen w-screen flex flex-col justify-center items-center px-3 md:px-0 max-w-screen md:max-w-[500px] pb-8 text-justify">
+                  <div className="text-xl mb-6 font-title text-center">
+                    the salad maker
+                  </div>
+
+                  <p className="pb-3">
                     Combining this concept with content from YID224: Plants &
                     People about plant nutrition, I created this salad maker
                     that generates salads containing both the macro and micro
                     nutrients that we learnt are so very important to one's
-                    diet. It helps with indecision in determining what to eat,
-                    and can bring in more dietary diversity to one's meal.
-                    Because eating the same salad everyday also gets so boring,
-                    I hope this salad maker will help spice up one's meal and
-                    pave the way for a healthier lifestyle through discovering
-                    new healthy salad recipes.
+                    diet. It picks from over 30 different ingredients that cover
+                    all the main nutrients that humans need for a healthy diet,
+                    and every salad generated takes into account the variety of
+                    nutrients contained, with each salad being different from
+                    the previous. Don't really like this combination? Click the
+                    button again and get a new one!
+                  </p>
+
+                  <p>
+                    This helps with indecision in determining what to eat, and
+                    can bring in more dietary diversity to one's meal. Because
+                    eating the same salad everyday gets so boring, I hope this
+                    salad maker will help spice up one's meal and pave the way
+                    for a healthier lifestyle through discovering new, healthy,
+                    and tasty salad recipes.
                   </p>
 
                   <div className="hidden md:flex justify-center w-full absolute bottom-8 left-0 ">
@@ -421,10 +480,36 @@ export default function Home() {
                       </a>
                     </li>
                     <li>
+                      Heiman, Mark L., and Frank L. Greenway. "A healthy
+                      gastrointestinal microbiome is dependent on dietary
+                      diversity." Molecular metabolism 5.5 (2016): 317-320.
+                      <a
+                        href="https://doi.org/10.1016/j.molmet.2016.02.005"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="underline"
+                      >
+                        https://doi.org/10.1016/j.molmet.2016.02.005
+                      </a>
+                    </li>
+                    <li>
                       Ruel, Marie T. "Is dietary diversity an indicator of food
                       security or dietary quality? A review of measurement
                       issues and research needs." Food and nutrition bulletin
                       24.2 (2003): 231-232.
+                    </li>
+                    <li>
+                      Torheim, L., Ouattara, F., Diarra, M. et al. Nutrient
+                      adequacy and dietary diversity in rural Mali: association
+                      and determinants. Eur J Clin Nutr 58, 594–604 (2004).
+                      <a
+                        href=" https://doi.org/10.1038/sj.ejcn.1601853"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="underline"
+                      >
+                        https://doi.org/10.1038/sj.ejcn.1601853
+                      </a>
                     </li>
                   </ul>
 
