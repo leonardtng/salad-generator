@@ -160,8 +160,29 @@ export default function Home() {
     <div className="min-h-screen w-screen font-primary">
       <Head>
         <title>Salad Maker</title>
-        <meta name="description" content="Create your healthy salad!" />
+        <meta name="description" content="Create a healthy salad!" />
         <link rel="icon" href="/favicon.ico" />
+
+        {/* <!-- Open Graph / Facebook --> */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://salad-maker.vercel.app/" />
+        <meta property="og:title" content="Salad Maker" />
+        <meta property="og:site_name" content="Salad Maker" />
+        <meta property="og:description" content="Create a healthy salad!" />
+        <meta property="og:image" content="/card.png" />
+
+        {/* <!-- Twitter --> */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          property="twitter:url"
+          content="https://salad-maker.vercel.app/"
+        />
+        <meta property="twitter:title" content="Salad Maker" />
+        <meta
+          property="twitter:description"
+          content="Create a healthy salad!"
+        />
+        <meta property="twitter:image" content="/card.png" />
       </Head>
 
       <ReactFullpage
