@@ -247,7 +247,7 @@ export default function Home() {
                             }}
                           >
                             <motion.button
-                              whileHover={{ scale: 1.1 }}
+                              whileHover={{ scale: 1.05 }}
                               transition={{ duration: 0.2 }}
                               className="py-1 w-[130px] flex justify-center items-center gap-2 rounded-full bg-[#eca341]"
                               onClick={() => setIsOpen(true)}
@@ -275,7 +275,7 @@ export default function Home() {
                   blurHigh
                 >
                   <motion.div
-                    className="flex flex-col w-[350px] pt-8 px-8"
+                    className="flex flex-col w-[350px] md:w-[400px] pt-8 px-8"
                     variants={container}
                     initial="hidden"
                     animate="show"
@@ -289,7 +289,7 @@ export default function Home() {
                     <ul>
                       {salad.map(
                         ({ label, nutrients }: Ingredient, index: number) => (
-                          <motion.li className="mb-3 text-sm" variants={item}>
+                          <motion.li className="mb-3" variants={item}>
                             <span className="underline">
                               {index === 0
                                 ? "Salad Base"
@@ -297,7 +297,7 @@ export default function Home() {
                               :
                             </span>{" "}
                             {label}
-                            <ul className="pl-6 text-sm">
+                            <ul className="pl-6">
                               {nutrients.map(
                                 (nutrient: string, index: number) => (
                                   <li key={index}>
@@ -313,8 +313,8 @@ export default function Home() {
 
                     <motion.div className="flex mt-3 mb-8" variants={item}>
                       <div className="w-1/2 mr-5">
-                        <div className="font-primaryBold text-sm">Macro</div>
-                        <ul className="text-xs">
+                        <div className="font-primaryBold">Macro</div>
+                        <ul className="text-sm">
                           {NUTRIENTS_MAP.macro
                             .filter((nutrient: string) =>
                               salad
@@ -330,8 +330,8 @@ export default function Home() {
                         </ul>
                       </div>
                       <div>
-                        <div className="font-primaryBold text-sm">Micro</div>
-                        <ul className="text-xs">
+                        <div className="font-primaryBold">Micro</div>
+                        <ul className="text-sm">
                           {NUTRIENTS_MAP.micro
                             .filter((nutrient: string) =>
                               salad
@@ -381,14 +381,16 @@ export default function Home() {
                   </p>
 
                   <p>
-                    Combining this concept with what I learnt in YID224: Plants
-                    & People about plant nutrition, I created this salad maker
-                    that generates salads that satisfy both the macro and micro
-                    nutrients that are so very important to one's diet. Because
-                    eating the same salad everyday also gets so boring and
-                    dietary diversity is the way to go, I hope this salad maker
-                    will help spice up one's meal and pave the way for a
-                    healthier lifestyle.
+                    Combining this concept with content from YID224: Plants &
+                    People about plant nutrition, I created this salad maker
+                    that generates salads containing both the macro and micro
+                    nutrients that we learnt are so very important to one's
+                    diet. It helps with indecision in determining what to eat,
+                    and can bring in more dietary diversity to one's meal.
+                    Because eating the same salad everyday also gets so boring,
+                    I hope this salad maker will help spice up one's meal and
+                    pave the way for a healthier lifestyle through discovering
+                    new healthy salad recipes.
                   </p>
 
                   <div className="hidden md:flex justify-center w-full absolute bottom-8 left-0 ">
