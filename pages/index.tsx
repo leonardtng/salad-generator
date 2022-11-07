@@ -160,7 +160,7 @@ export default function Home() {
     <div className="min-h-screen w-screen font-primary">
       <Head>
         <title>Salad Maker</title>
-        <meta name="description" content="Create a healthy salad!" />
+        <meta name="description" content="Create the perfect salad!" />
         <link rel="icon" href="/favicon.ico" />
 
         {/* <!-- Open Graph / Facebook --> */}
@@ -168,7 +168,7 @@ export default function Home() {
         <meta property="og:url" content="https://salad-maker.vercel.app/" />
         <meta property="og:title" content="Salad Maker" />
         <meta property="og:site_name" content="Salad Maker" />
-        <meta property="og:description" content="Create a healthy salad!" />
+        <meta property="og:description" content="Create the perfect salad!" />
         <meta property="og:image" content="/card.png" />
 
         {/* <!-- Twitter --> */}
@@ -180,7 +180,7 @@ export default function Home() {
         <meta property="twitter:title" content="Salad Maker" />
         <meta
           property="twitter:description"
-          content="Create a healthy salad!"
+          content="Create the perfect salad!"
         />
         <meta property="twitter:image" content="/card.png" />
       </Head>
