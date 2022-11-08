@@ -400,9 +400,9 @@ export default function Home() {
                   </p>
 
                   <p>
-                    Unfortunately, much of dietary diversity has been in decline
-                    over the past 50 years as lifestyles become more routine
-                    (Heiman et al. 2016).
+                    Unfortunately, dietary diversity has been in decline over
+                    the past 50 years as lifestyles become more routine (Heiman
+                    et al. 2016).
                   </p>
 
                   <div className="hidden md:flex justify-center w-full absolute bottom-8 left-0 ">
