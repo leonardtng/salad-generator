@@ -493,10 +493,10 @@ export default function Home() {
 
                   <ul className="flex flex-col gap-5">
                     <li>
-                      Arimond, Mary, and Marie T. Ruel. "Dietary diversity is
-                      associated with child nutritional status: evidence from 11
-                      demographic and health surveys." The Journal of nutrition
-                      134.10 (2004): 2579-2585.
+                      Arimond, Mary, and Marie T. Ruel. 2004. Dietary diversity
+                      is associated with child nutritional status: evidence from
+                      11 demographic and health surveys.
+                      <i> The Journal of nutrition </i>134.10:2579-2585.&nbsp;
                       <a
                         href="https://doi.org/10.1093/jn/134.10.2579"
                         target="_blank"
@@ -507,9 +507,9 @@ export default function Home() {
                       </a>
                     </li>
                     <li>
-                      Heiman, Mark L., and Frank L. Greenway. "A healthy
+                      Heiman, Mark L., and Frank L. Greenway. 2016. A healthy
                       gastrointestinal microbiome is dependent on dietary
-                      diversity." Molecular metabolism 5.5 (2016): 317-320.
+                      diversity.<i> Molecular metabolism </i>5.5:317-320.&nbsp;
                       <a
                         href="https://doi.org/10.1016/j.molmet.2016.02.005"
                         target="_blank"
@@ -520,15 +520,17 @@ export default function Home() {
                       </a>
                     </li>
                     <li>
-                      Ruel, Marie T. "Is dietary diversity an indicator of food
-                      security or dietary quality? A review of measurement
-                      issues and research needs." Food and nutrition bulletin
-                      24.2 (2003): 231-232.
+                      Ruel, Marie T. 2003. Is dietary diversity an indicator of
+                      food security or dietary quality? A review of measurement
+                      issues and research needs.
+                      <i> Food and nutrition bulletin </i>
+                      24.2:231-232.
                     </li>
                     <li>
-                      Torheim, L., Ouattara, F., Diarra, M. et al. Nutrient
-                      adequacy and dietary diversity in rural Mali: association
-                      and determinants. Eur J Clin Nutr 58, 594–604 (2004).
+                      Torheim, L., Ouattara, F., Diarra, M. et al. 2004.
+                      Nutrient adequacy and dietary diversity in rural Mali:
+                      association and determinants.<i> Eur J Clin Nutr </i>58,
+                      594–604.&nbsp;
                       <a
                         href=" https://doi.org/10.1038/sj.ejcn.1601853"
                         target="_blank"
