@@ -429,7 +429,7 @@ export default function Home() {
                     children developing better under higher socio-economic
                     circumstances, there is also a relationship between dietary
                     diversity and diet quality independent of socio-economic
-                    status (Arimond & Marie 2004).
+                    status (Arimond and Marie 2004).
                   </p>
 
                   <p>
