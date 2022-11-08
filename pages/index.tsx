@@ -390,13 +390,19 @@ export default function Home() {
                     required to meet your daily needs.
                   </p>
 
-                  <p>
+                  <p className="mb-3">
                     It is also believed that having a diverse diet helps in
-                    maintaining a healthy gastrointestinal microbiome.
-                    Gastrointestinal tracts that contains a richer microbial
-                    ecosystem was found to have a greater resilience to disease,
-                    and this can be achieved by eating a wide variety of fruit
-                    and vegetables (Heiman et al. 2016).
+                    maintaining a healthy gastrointestinal microbiome (Heiman et
+                    al. 2016). Gastrointestinal tracts that contains a richer
+                    microbial ecosystem was found to have a greater resilience
+                    to disease, and this can be achieved by eating a wide
+                    variety of fruit and vegetables.
+                  </p>
+
+                  <p>
+                    Unfortunately, much of dietary diversity has been in decline
+                    over the past 50 years as lifestyles become more routine
+                    (Heiman et al. 2016).
                   </p>
 
                   <div className="hidden md:flex justify-center w-full absolute bottom-8 left-0 ">
