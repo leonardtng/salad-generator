@@ -458,7 +458,7 @@ export default function Home() {
                   </div>
 
                   <p className="pb-3">
-                    Combining this concept with content from YID224: Plants &
+                    Combining this concept with content from YID2214: Plants &
                     People about plant nutrition, I created this salad maker
                     that generates salads containing both the macro and micro
                     nutrients that we learnt are so very important to one's
